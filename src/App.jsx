@@ -27,15 +27,61 @@ Cube.propTypes = {
 };
 
 export const Sphere = (props) => {
+  const ref = useRef();
+
+  useFrame((state, delta) => {
+    ref.current.rotation.x += delta;
+    ref.current.rotation.y += delta * 2;
+    ref.current.position.z = Math.sin(state.clock.getElapsedTime()) * 2;
+  });
+
   return (
-    <mesh position={props.position}>
+    <mesh ref={ref} position={props.position}>
       <sphereGeometry args={props.size} />
-      <meshStandardMaterial color={props.color} />
+      <meshStandardMaterial color={props.color} wireframe />
     </mesh>
   );
 };
 
 Sphere.propTypes = {
+  position: PropTypes.array,
+  size: PropTypes.array,
+  color: PropTypes.string,
+};
+
+export const Torus = (props) => {
+  return (
+    <mesh position={props.position}>
+      <torusGeometry args={props.size} />
+      <meshStandardMaterial color={props.color} />
+    </mesh>
+  );
+};
+
+Torus.propTypes = {
+  position: PropTypes.array,
+  size: PropTypes.array,
+  color: PropTypes.string,
+};
+
+export const TorusKnot = (props) => {
+  const ref = useRef();
+
+  useFrame((state, delta) => {
+    ref.current.rotation.x += delta;
+    ref.current.rotation.y += delta * 2;
+    ref.current.position.z = Math.sin(state.clock.getElapsedTime()) * 2;
+  });
+
+  return (
+    <mesh ref={ref} position={props.position}>
+      <torusKnotGeometry args={props.size} />
+      <meshStandardMaterial color={props.color} />
+    </mesh>
+  );
+};
+
+TorusKnot.propTypes = {
   position: PropTypes.array,
   size: PropTypes.array,
   color: PropTypes.string,
@@ -49,6 +95,16 @@ const App = () => {
 
       {/* <Cube position={[0, 0, 0]} color={"red"} size={[1, 1, 1]} /> */}
       <Sphere position={[0, 0, 0]} color={"red"} args={[1, 30, 30]} />
+      <Torus
+        position={[2, 0, 0]}
+        color={"lightblue"}
+        size={[0.5, 0.1, 30, 30]}
+      />
+      <TorusKnot
+        position={[-2, 0, 0]}
+        color={"lightgreen"}
+        size={[0.5, 0.1, 1000, 50]}
+      />
 
       {/* <group position={[0, -1, 0]}>
         <Cube position={[1, 0, 0]} color={"red"} size={[1, 1, 1]} />
