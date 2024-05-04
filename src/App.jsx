@@ -1,10 +1,19 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import PropTypes from "prop-types";
+import { useRef } from "react";
 import "./App.css";
 
 export const Cube = (props) => {
+  const ref = useRef();
+
+  useFrame((state, delta) => {
+    ref.current.rotation.x += delta;
+    ref.current.rotation.y += delta * 2;
+    ref.current.position.z = Math.sin(state.clock.getElapsedTime()) * 2;
+  });
+
   return (
-    <mesh position={props.position}>
+    <mesh ref={ref} position={props.position}>
       <boxGeometry args={props.size} />
       <meshStandardMaterial color={props.color} />
     </mesh>
@@ -23,12 +32,14 @@ const App = () => {
       <directionalLight position={[0, 0, 2]} />
       <ambientLight />
 
-      <group position={[0, -1, 0]}>
+      <Cube position={[0, 0, 0]} color={"red"} size={[1, 1, 1]} />
+
+      {/* <group position={[0, -1, 0]}>
         <Cube position={[1, 0, 0]} color={"red"} size={[1, 1, 1]} />
         <Cube position={[-1, 0, 0]} color={"yellow"} size={[1, 1, 1]} />
         <Cube position={[1, 2, 0]} color={"blue"} size={[1, 1, 1]} />
         <Cube position={[-1, 2, 0]} color={"green"} size={[1, 1, 1]} />
-      </group>
+      </group> */}
     </Canvas>
   );
 };
