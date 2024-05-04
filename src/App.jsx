@@ -26,13 +26,29 @@ Cube.propTypes = {
   color: PropTypes.string,
 };
 
+export const Sphere = (props) => {
+  return (
+    <mesh position={props.position}>
+      <sphereGeometry args={props.size} />
+      <meshStandardMaterial color={props.color} />
+    </mesh>
+  );
+};
+
+Sphere.propTypes = {
+  position: PropTypes.array,
+  size: PropTypes.array,
+  color: PropTypes.string,
+};
+
 const App = () => {
   return (
     <Canvas>
       <directionalLight position={[0, 0, 2]} />
       <ambientLight />
 
-      <Cube position={[0, 0, 0]} color={"red"} size={[1, 1, 1]} />
+      {/* <Cube position={[0, 0, 0]} color={"red"} size={[1, 1, 1]} /> */}
+      <Sphere position={[0, 0, 0]} color={"red"} args={[1, 30, 30]} />
 
       {/* <group position={[0, -1, 0]}>
         <Cube position={[1, 0, 0]} color={"red"} size={[1, 1, 1]} />
