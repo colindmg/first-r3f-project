@@ -1,8 +1,13 @@
 /* eslint-disable react/no-unknown-property */
-import { MeshWobbleMaterial, OrbitControls } from "@react-three/drei";
+import {
+  MeshWobbleMaterial,
+  OrbitControls,
+  useHelper,
+} from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
+import { DirectionalLightHelper } from "three";
 import "./App.css";
 
 export const Cube = (props) => {
@@ -109,11 +114,15 @@ TorusKnot.propTypes = {
   color: PropTypes.string,
 };
 
-const App = () => {
+export const Scene = () => {
+  const directionalLightRef = useRef();
+
+  useHelper(directionalLightRef, DirectionalLightHelper, 0.5, "white");
+
   return (
-    <Canvas>
-      <directionalLight position={[0, 2, 2]} />
-      <ambientLight />
+    <>
+      <directionalLight ref={directionalLightRef} position={[2, 1, 2]} />
+      <ambientLight intensity={0.1} />
 
       {/* <Cube position={[0, 0, 0]} color={"red"} size={[1, 1, 1]} /> */}
       {/* <Sphere position={[0, 0, 0]} color={"red"} args={[1, 30, 30]} /> */}
@@ -137,6 +146,14 @@ const App = () => {
       </group> */}
 
       <OrbitControls enableZoom={false} />
+    </>
+  );
+};
+
+const App = () => {
+  return (
+    <Canvas>
+      <Scene />
     </Canvas>
   );
 };
