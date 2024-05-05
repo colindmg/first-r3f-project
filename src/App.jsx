@@ -5,6 +5,7 @@ import {
   useHelper,
 } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { useControls } from "leva";
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import { DirectionalLightHelper } from "three";
@@ -93,6 +94,16 @@ Torus.propTypes = {
 export const TorusKnot = (props) => {
   const ref = useRef();
 
+  const { color, radius } = useControls({
+    color: "#FFF",
+    radius: {
+      value: 5,
+      min: 1,
+      max: 10,
+      step: 0.5,
+    },
+  });
+
   // useFrame((state, delta) => {
   //   ref.current.rotation.x += delta;
   //   ref.current.rotation.y += delta * 2;
@@ -101,9 +112,9 @@ export const TorusKnot = (props) => {
 
   return (
     <mesh ref={ref} position={props.position}>
-      <torusKnotGeometry args={props.size} />
+      <torusKnotGeometry args={[radius, ...props.size]} />
       {/* <meshStandardMaterial color={props.color} /> */}
-      <MeshWobbleMaterial factor={5} speed={2} />
+      <MeshWobbleMaterial factor={5} speed={2} color={color} />
     </mesh>
   );
 };
@@ -111,17 +122,30 @@ export const TorusKnot = (props) => {
 TorusKnot.propTypes = {
   position: PropTypes.array,
   size: PropTypes.array,
-  color: PropTypes.string,
 };
 
 export const Scene = () => {
   const directionalLightRef = useRef();
 
+  const { lightColor, lightIntensity } = useControls({
+    lightColor: "#ffffff",
+    lightIntensity: {
+      value: 0.5,
+      min: 0,
+      max: 5,
+    },
+  });
+
   useHelper(directionalLightRef, DirectionalLightHelper, 0.5, "white");
 
   return (
     <>
-      <directionalLight ref={directionalLightRef} position={[2, 1, 2]} />
+      <directionalLight
+        ref={directionalLightRef}
+        position={[2, 1, 2]}
+        color={lightColor}
+        intensity={lightIntensity}
+      />
       <ambientLight intensity={0.1} />
 
       {/* <Cube position={[0, 0, 0]} color={"red"} size={[1, 1, 1]} /> */}
@@ -131,11 +155,7 @@ export const Scene = () => {
         color={"lightblue"}
         size ={[0.5, 0.1, 30, 30]}
   /> */}
-      <TorusKnot
-        position={[0, 0, 0]}
-        color={"lightgreen"}
-        size={[1, 0.1, 1000, 50]}
-      />
+      <TorusKnot position={[0, 0, 0]} size={[0.1, 1000, 50]} />
 
       {/* 4 CUBES DE COULEUR */}
       {/* <group position={[0, -1, 0]}>
