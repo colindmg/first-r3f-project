@@ -1,6 +1,7 @@
+/* eslint-disable react/no-unknown-property */
 import { Canvas, useFrame } from "@react-three/fiber";
 import PropTypes from "prop-types";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 
 export const Cube = (props) => {
@@ -29,16 +30,35 @@ Cube.propTypes = {
 export const Sphere = (props) => {
   const ref = useRef();
 
+  const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+
   useFrame((state, delta) => {
-    ref.current.rotation.x += delta;
-    ref.current.rotation.y += delta * 2;
-    ref.current.position.z = Math.sin(state.clock.getElapsedTime()) * 2;
+    const speed = isHovered ? 0.5 : 0.2;
+    ref.current.rotation.y += delta * speed;
   });
 
   return (
-    <mesh ref={ref} position={props.position}>
+    <mesh
+      ref={ref}
+      position={props.position}
+      onPointerEnter={(event) => {
+        event.stopPropagation;
+        setIsHovered(true);
+      }}
+      onPointerLeave={() => {
+        setIsHovered(false);
+      }}
+      onClick={() => {
+        setIsClicked(!isClicked);
+      }}
+      scale={isClicked ? [1.5, 1.5, 1.5] : [1, 1, 1]}
+    >
       <sphereGeometry args={props.size} />
-      <meshStandardMaterial color={props.color} wireframe />
+      <meshStandardMaterial
+        color={isHovered ? "orange" : props.color}
+        wireframe
+      />
     </mesh>
   );
 };
@@ -95,7 +115,7 @@ const App = () => {
 
       {/* <Cube position={[0, 0, 0]} color={"red"} size={[1, 1, 1]} /> */}
       <Sphere position={[0, 0, 0]} color={"red"} args={[1, 30, 30]} />
-      <Torus
+      {/* <Torus
         position={[2, 0, 0]}
         color={"lightblue"}
         size={[0.5, 0.1, 30, 30]}
@@ -104,8 +124,9 @@ const App = () => {
         position={[-2, 0, 0]}
         color={"lightgreen"}
         size={[0.5, 0.1, 1000, 50]}
-      />
+      /> */}
 
+      {/* 4 CUBES DE COULEUR */}
       {/* <group position={[0, -1, 0]}>
         <Cube position={[1, 0, 0]} color={"red"} size={[1, 1, 1]} />
         <Cube position={[-1, 0, 0]} color={"yellow"} size={[1, 1, 1]} />
