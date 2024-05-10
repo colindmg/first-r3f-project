@@ -1,10 +1,12 @@
 /* eslint-disable react/no-unknown-property */
 import {
-  MeshWobbleMaterial,
+  Environment,
+  MeshTransmissionMaterial,
   OrbitControls,
+  Text,
   useHelper,
 } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useControls } from "leva";
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
@@ -93,29 +95,62 @@ Torus.propTypes = {
 
 export const TorusKnot = (props) => {
   const ref = useRef();
+  const torusRef = useRef();
 
-  const { color, radius } = useControls({
-    color: "#FFF",
-    radius: {
-      value: 5,
-      min: 1,
-      max: 10,
-      step: 0.5,
-    },
+  // const { color, radius } = useControls({
+  //   color: "#FFF",
+  //   // radius: {
+  //   //   value: 1.5,
+  //   //   min: 1,
+  //   //   max: 10,
+  //   //   step: 0.5,
+  //   // },
+  // });
+  const color = "#FFF";
+
+  useFrame((state, delta) => {
+    // ref.current.rotation.x += delta * 0.3;
+    ref.current.rotation.y += delta * 0.5;
+    // ref.current.position.z = Math.sin(state.clock.getElapsedTime()) * 2;
   });
 
-  // useFrame((state, delta) => {
-  //   ref.current.rotation.x += delta;
-  //   ref.current.rotation.y += delta * 2;
-  //   ref.current.position.z = Math.sin(state.clock.getElapsedTime()) * 2;
+  const { viewport } = useThree();
+
+  // const materialProps = useControls({
+  //   thickness: { value: 0.2, min: 0, max: 3, step: 0.05 },
+  //   roughness: { value: 0, min: 0, max: 1, step: 0.1 },
+  //   transmission: { value: 1, min: 0, max: 1, step: 0.1 },
+  //   ior: { value: 1.2, min: 0, max: 3, step: 0.1 },
+  //   chromaticAberration: { value: 0.75, min: 0, max: 1 },
+  //   backside: { value: true },
   // });
 
+  const materialProps = {
+    thickness: 0.2,
+    roughness: 0,
+    transmission: 1,
+    ior: 1.2,
+    chromaticAberration: 0.75,
+    backside: true,
+  };
+
   return (
-    <mesh ref={ref} position={props.position}>
-      <torusKnotGeometry args={[radius, ...props.size]} />
-      {/* <meshStandardMaterial color={props.color} /> */}
-      <MeshWobbleMaterial factor={5} speed={2} color={color} />
-    </mesh>
+    <>
+      <Text fontSize={1.4} position={[0, 0, -2]}>
+        Wobble doodle
+      </Text>
+      <mesh ref={ref} position={props.position} scale={viewport.width / 16}>
+        <torusKnotGeometry ref={torusRef} args={[2, ...props.size]} />
+        {/* <meshStandardMaterial color={props.color} /> */}
+        {/* <MeshWobbleMaterial
+        attach="material-0"
+        factor={5}
+        speed={2}
+        color={color}
+      /> */}
+        <MeshTransmissionMaterial {...materialProps} />
+      </mesh>
+    </>
   );
 };
 
@@ -127,16 +162,19 @@ TorusKnot.propTypes = {
 export const Scene = () => {
   const directionalLightRef = useRef();
 
-  const { lightColor, lightIntensity } = useControls({
-    lightColor: "#ffffff",
-    lightIntensity: {
-      value: 0.5,
-      min: 0,
-      max: 5,
-    },
-  });
+  // const { lightColor, lightIntensity } = useControls({
+  //   lightColor: "#ffffff",
+  //   lightIntensity: {
+  //     value: 0.5,
+  //     min: 0,
+  //     max: 5,
+  //   },
+  // });
 
-  useHelper(directionalLightRef, DirectionalLightHelper, 0.5, "white");
+  const lightColor = "#ffffff";
+  const lightIntensity = 0.5;
+
+  // useHelper(directionalLightRef, DirectionalLightHelper, 0.5, "white");
 
   return (
     <>
@@ -147,6 +185,7 @@ export const Scene = () => {
         intensity={lightIntensity}
       />
       <ambientLight intensity={0.1} />
+      <Environment preset="city" />
 
       {/* <Cube position={[0, 0, 0]} color={"red"} size={[1, 1, 1]} /> */}
       {/* <Sphere position={[0, 0, 0]} color={"red"} args={[1, 30, 30]} /> */}
@@ -155,7 +194,7 @@ export const Scene = () => {
         color={"lightblue"}
         size ={[0.5, 0.1, 30, 30]}
   /> */}
-      <TorusKnot position={[0, 0, 0]} size={[0.1, 1000, 50]} />
+      <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} />
 
       {/* 4 CUBES DE COULEUR */}
       {/* <group position={[0, -1, 0]}>
