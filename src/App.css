@@ -3,9 +3,28 @@
   height: 100%;
   margin: 0;
   padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #fff #000;
 }
 
 body {
   background-color: black;
   overflow: hidden;
+}
+
+/* Scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #fff;
 }
