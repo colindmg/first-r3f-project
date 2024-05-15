@@ -48,13 +48,13 @@ const TorusKnot = (props) => {
   return (
     <>
       <Text fontSize={0.3} position={[-6.8, 2, -5]}>
-        MADE BY CREATIVE
+        MADE BY CREATIVES
       </Text>
       <Text fontSize={3} fontWeight={700} position={[-5.8, 0, -5]}>
         FOR
       </Text>
       <Text fontSize={3} fontStyle="italic" position={[4, 0, -5]}>
-        Creative
+        Creatives
       </Text>
       <mesh ref={ref} position={props.position} scale={viewport.width / 16}>
         <torusKnotGeometry ref={torusRef} args={[1.5, 0.2, 70, 10, 6, 14]} />
