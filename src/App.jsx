@@ -106,10 +106,9 @@ export const TorusKnot = (props) => {
   //   //   step: 0.5,
   //   // },
   // });
-  const color = "#FFF";
 
   useFrame((state, delta) => {
-    // ref.current.rotation.x += delta * 0.3;
+    ref.current.rotation.x += delta * 0.3;
     ref.current.rotation.y += delta * 0.5;
     // ref.current.position.z = Math.sin(state.clock.getElapsedTime()) * 2;
   });
@@ -136,11 +135,11 @@ export const TorusKnot = (props) => {
 
   return (
     <>
-      <Text fontSize={1.4} position={[0, 0, -2]}>
-        Wobble doodle
+      <Text fontSize={2} position={[0, 0, -5]}>
+        KEEP Crafting
       </Text>
       <mesh ref={ref} position={props.position} scale={viewport.width / 16}>
-        <torusKnotGeometry ref={torusRef} args={[2, ...props.size]} />
+        <torusKnotGeometry ref={torusRef} args={[1.5, ...props.size]} />
         {/* <meshStandardMaterial color={props.color} /> */}
         {/* <MeshWobbleMaterial
         attach="material-0"
