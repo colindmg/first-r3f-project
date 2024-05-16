@@ -2,7 +2,6 @@
 import {
   Environment,
   OrbitControls,
-  Scroll,
   ScrollControls,
   Text,
 } from "@react-three/drei";
@@ -97,10 +96,11 @@ const Scene = () => {
       </Text>
 
       {/* FORME EFFET GLASS */}
-      <ScrollControls ages={2.5} damping={0.25}>
-        <Scroll>
+      <ScrollControls pages={2}>
+        {/* <Scroll>
           <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} />
-        </Scroll>
+        </Scroll> */}
+        <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} />
       </ScrollControls>
 
       <OrbitControls enableZoom={false} />
