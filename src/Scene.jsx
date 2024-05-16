@@ -91,7 +91,7 @@ const Scene = () => {
         WORLDWIDE
       </Text> */}
 
-      <ScrollControls pages={2}>
+      <ScrollControls pages={3}>
         {/* TEXTES DE FOND */}
         <BackgroundTexts />
         {/* FORME EFFET GLASS */}

@@ -42,17 +42,26 @@ const TorusKnot = (props) => {
   });
 
   useGSAP(() => {
-    tl.current = gsap.timeline();
+    tl.current = gsap.timeline({
+      defaults: { duration: 3 },
+    });
 
-    tl.current.to(
-      ref.current.position,
-      {
-        duration: 2,
-        z: 5.3,
-      },
-      0
-    );
-  });
+    tl.current
+      .to(
+        ref.current.position,
+        {
+          z: 5.5,
+        },
+        0
+      )
+      .to(
+        ref.current.position,
+        {
+          z: 5.5,
+        },
+        2
+      );
+  }, []);
 
   return (
     <mesh ref={ref} position={props.position} scale={viewport.width / 16}>
