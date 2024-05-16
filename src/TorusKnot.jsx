@@ -31,7 +31,11 @@ const TorusKnot = (props) => {
     // ref.current.position.z = Math.sin(state.clock.getElapsedTime()) * 1.5;
 
     if (ref.current) {
-      ref.current.rotation.z += delta * 0.6;
+      if (scroll.offset > 0) {
+        ref.current.rotation.z -= delta * 1.2;
+      } else {
+        ref.current.rotation.z += delta * 0.6;
+      }
 
       tl.current.seek(scroll.offset * tl.current.duration());
     }
