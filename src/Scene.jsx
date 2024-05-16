@@ -4,6 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
 import BackgroundTexts from "./BackgroundTexts";
+import TorusKnot from "./TorusKnot";
 
 const Scene = () => {
   const directionalLightRef = useRef();
@@ -94,7 +95,7 @@ const Scene = () => {
         {/* TEXTES DE FOND */}
         <BackgroundTexts />
         {/* FORME EFFET GLASS */}
-        {/* <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} /> */}
+        <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} />
       </ScrollControls>
 
       {/* <OrbitControls enableZoom={false} /> */}
