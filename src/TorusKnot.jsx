@@ -48,15 +48,6 @@ const TorusKnot = (props) => {
       },
       0
     );
-
-    // tl.current.to(
-    //   ref.current.rotation,
-    //   {
-    //     duration: 2,
-    //     z: -1.5,
-    //   },
-    //   0.02
-    // );
   });
 
   return (

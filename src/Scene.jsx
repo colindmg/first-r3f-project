@@ -1,13 +1,9 @@
 /* eslint-disable react/no-unknown-property */
-import {
-  Environment,
-  OrbitControls,
-  ScrollControls,
-  Text,
-} from "@react-three/drei";
+import { Environment, OrbitControls, ScrollControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
+import BackgroundTexts from "./BackgroundTexts";
 import TorusKnot from "./TorusKnot";
 
 const Scene = () => {
@@ -80,7 +76,7 @@ const Scene = () => {
       <Environment preset="city" />
 
       {/* TEXTES DE FOND */}
-      <Text fontSize={0.3} position={[-6.5, 2.4, -5]}>
+      {/* <Text fontSize={0.3} position={[-6.5, 2.4, -5]}>
         MADE BY
       </Text>
       <Text
@@ -93,13 +89,12 @@ const Scene = () => {
       </Text>
       <Text fontSize={0.3} position={[6.8, -2, -5]}>
         WORLDWIDE
-      </Text>
+      </Text> */}
 
-      {/* FORME EFFET GLASS */}
       <ScrollControls pages={2}>
-        {/* <Scroll>
-          <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} />
-        </Scroll> */}
+        {/* TEXTES DE FOND */}
+        <BackgroundTexts />
+        {/* FORME EFFET GLASS */}
         <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} />
       </ScrollControls>
 
