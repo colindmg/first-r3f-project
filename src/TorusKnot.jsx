@@ -19,8 +19,8 @@ const TorusKnot = (props) => {
     thickness: 0.1,
     roughness: 0,
     transmission: 1,
-    ior: 1,
-    chromaticAberration: 0.4,
+    ior: 1.2,
+    chromaticAberration: 0.7,
     backside: false,
   };
 
