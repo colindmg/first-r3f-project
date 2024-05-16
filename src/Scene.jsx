@@ -1,9 +1,10 @@
 /* eslint-disable react/no-unknown-property */
-import { Environment, ScrollControls } from "@react-three/drei";
+import { Environment, Scroll, ScrollControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
 import BackgroundTexts from "./BackgroundTexts";
+import HtmlElements from "./HtmlElements";
 import TorusKnot from "./TorusKnot";
 
 const Scene = () => {
@@ -95,7 +96,11 @@ const Scene = () => {
         {/* TEXTES DE FOND */}
         <BackgroundTexts />
         {/* FORME EFFET GLASS */}
-        <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} />
+        {/* <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} /> */}
+
+        <Scroll html>
+          <HtmlElements />
+        </Scroll>
       </ScrollControls>
 
       {/* <OrbitControls enableZoom={false} /> */}
