@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { Environment, OrbitControls, ScrollControls } from "@react-three/drei";
+import { Environment, ScrollControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
@@ -98,7 +98,7 @@ const Scene = () => {
         <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} />
       </ScrollControls>
 
-      <OrbitControls enableZoom={false} />
+      {/* <OrbitControls enableZoom={false} /> */}
     </>
   );
 };
