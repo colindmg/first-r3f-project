@@ -79,17 +79,26 @@ const HtmlElements = () => {
 
     imagesData.forEach((image, index) => {
       // Apparition des images à la moitié de la timeline
+      tl.current.to(image.ref.current, { x: 0 }, 0);
       tl.current.fromTo(
         image.ref.current,
         { opacity: 0, top: "130vh" },
         {
           opacity: 1,
-          duration: 3,
-          top: "210vh",
+          duration: 30,
+          top: "200vh",
           ease: "power1.out",
-          delay: index * 0.3 + 1.5 + 3,
+          delay: index * 2,
         },
-        "70%"
+        55
+      );
+      tl.current.to(
+        image.ref.current,
+        {
+          top: image.top,
+          duration: 25,
+        },
+        100
       );
     });
   }, []);
