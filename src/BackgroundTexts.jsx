@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { useGSAP } from "@gsap/react";
-import { Text, useScroll } from "@react-three/drei";
+import { Image, Text, useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
 import { useRef } from "react";
@@ -113,6 +113,12 @@ const BackgroundTexts = () => {
           opacity={1}
         />
       </Text>
+
+      {/* <Image
+        url="/img/01.webp"
+        position={[0, -1.5, 1.5]}
+        scale={1.5} // Par exemple, pour changer l'échelle
+      /> */}
     </>
   );
 };
