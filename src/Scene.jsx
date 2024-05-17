@@ -96,7 +96,7 @@ const Scene = () => {
         {/* TEXTES DE FOND */}
         <BackgroundTexts />
         {/* FORME EFFET GLASS */}
-        {/* <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} /> */}
+        <TorusKnot position={[0, 0, 0]} size={[0.3, 500, 50]} />
 
         <Scroll html>
           <HtmlElements />
