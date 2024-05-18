@@ -97,6 +97,7 @@ const HtmlElements = () => {
         {
           top: image.top,
           duration: 25,
+          delay: index,
         },
         100
       );
@@ -112,11 +113,7 @@ const HtmlElements = () => {
           className="absolute bg-white p-1 rounded-sm h-fit w-fit"
           style={{ top: image.top, left: image.left, right: image.right }}
         >
-          <img
-            className={`w-[${image.width}]`}
-            src={image.src}
-            alt={image.alt}
-          />
+          <img style={{ width: image.width }} src={image.src} alt={image.alt} />
           <p className="absolute -bottom-[100%] left-0 text-white text-sm">
             {image.author}
           </p>
